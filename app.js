@@ -2,7 +2,10 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const startButton = document.querySelector('.btn_reset');
 let missed = 0;
-const phrases = ['Eat Drink And Be Merry', 'Buy One Get One Free', 'Can You Keep A Secret', 'Go Jump In A Lake', 'Look On The Bright Side'];
+const phrases = ['eat drink and be merry', 'buy one get one free', 'can you keep a secret', 'go jump in a lake', 'look on the bright side'];
+
+const phraseArray = getRandomPhraseAsArray(phrases);
+
 
 // listen for the start game button to be pressed
 startButton.addEventListener('click', () => {
@@ -12,22 +15,27 @@ startButton.addEventListener('click', () => {
 
 // return a random phrase from an array
 function getRandomPhraseAsArray(arr) {
-  //create a variable to store a random number based on the length of the array
   const randomNumber = Math.floor(Math.random() * phrases.length + 1);
-
-  //use the variable to select an index inside of the array and split into individual words
-  const chosenPhrase = phrases[randomNumber].split(" ");
-
-  // return the array element at that index
+  const chosenPhrase = phrases[randomNumber].split('');
   return chosenPhrase;
 }
 
-getRandomPhraseAsArray(phrases);
+// add the letters of a string to the display by doing the following: loop through each character in the array => create a li; put the character in the li; add class name 'letter' to li if it's an actual letter and class name 'space' if it's a space; append list item to ul
+function addPhraseToDisplay(arr) {
+  for (let i = 0; i < phraseArray.length; i++) {
+    const li = document.createElement('li');
+    li.textContent = phraseArray[i];
+    if (phraseArray[i] !== ' ') {
+      li.className = 'letter';
+    } else {
+      li.className = 'space';
+    }
+    const ul = document.querySelector('ul');
+    ul.appendChild(li);
+  }
+}
 
-// add the letters of a string to the display
-// const addPhraseToDisplay = arr => {
-
-// }
+addPhraseToDisplay(phraseArray);
 
 // check if a letter is in the phrase 
 // const checkLetter = button => {
